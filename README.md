@@ -48,7 +48,7 @@ This example uses [Scraper API](https://github.com/ranmoliunian-spec/scraper-api
 - ✅ Proxy rotation
 - ✅ Clean HTML extraction
 
-Try the [live demo](https://scraper-api-demo.inquisitive-bluebell.workers.dev) or use the [npm client](https://github.com/ranmoliunian-spec/scraper-api-client).
+Try the [npm client](https://github.com/ranmoliunian-spec/scraper-api-client).
 
 ## Use Cases
 
