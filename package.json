@@ -1,0 +1,32 @@
+{
+  "name": "scrape-hackernews-json",
+  "version": "1.0.0",
+  "description": "Extract Hacker News posts into clean JSON",
+  "main": "scrape-hn.js",
+  "bin": {
+    "scrape-hn": "./scrape-hn.js"
+  },
+  "scripts": {
+    "start": "node scrape-hn.js",
+    "test": "node scrape-hn.js"
+  },
+  "keywords": [
+    "hacker-news",
+    "scraper",
+    "hn",
+    "web-scraping",
+    "json",
+    "api",
+    "news",
+    "hackernews"
+  ],
+  "author": "Scraper API",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ranmoliunian-spec/scrape-hackernews-json"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
