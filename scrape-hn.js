@@ -6,40 +6,51 @@
  */
 
 const https = require('https');
+const cheerio = require('cheerio');
 
-// NOTE: Demo API is no longer available. Deploy your own instance:
-// https://github.com/ranmoliunian-spec/scraper-api
-const API_URL = process.env.SCRAPER_API_URL || 'https://scraper-api-demo.inquisitive-bluebell.workers.dev/scrape';
 const HN_URL = 'https://news.ycombinator.com';
 
 /**
- * Scrape HN front page via API
+ * Scrape HN front page (standalone local scraping)
  */
 async function scrapeHN() {
-  const payload = JSON.stringify({ url: HN_URL });
-
   return new Promise((resolve, reject) => {
-    const req = https.request(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': payload.length
-      }
-    }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
+    https.get(HN_URL, (res) => {
+      let html = '';
+      res.on('data', chunk => html += chunk);
       res.on('end', () => {
         if (res.statusCode === 200) {
-          resolve(JSON.parse(data));
+          const $ = cheerio.load(html);
+
+          // Extract metadata
+          const title = $('title').text() || '';
+          const description = $('meta[name="description"]').attr('content') || '';
+
+          // Extract all links
+          const links = [];
+          $('a').each((i, el) => {
+            const href = $(el).attr('href');
+            const text = $(el).text().trim();
+            if (href && text) {
+              links.push({ href, text });
+            }
+          });
+
+          // Extract text content
+          const content = $('body').text().replace(/\s+/g, ' ').trim();
+          const wordCount = content.split(/\s+/).length;
+
+          resolve({
+            url: HN_URL,
+            metadata: { title, description, wordCount },
+            links,
+            content
+          });
         } else {
-          reject(new Error(`API returned ${res.statusCode}: ${data}`));
+          reject(new Error(`HTTP ${res.statusCode}`));
         }
       });
-    });
-
-    req.on('error', reject);
-    req.write(payload);
-    req.end();
+    }).on('error', reject);
   });
 }
 

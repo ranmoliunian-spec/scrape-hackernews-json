@@ -17,6 +17,8 @@ npm install
 node scrape-hn.js
 ```
 
+**Works locally, no API key required.** Uses native fetch + cheerio for HTML parsing.
+
 Output example:
 ```json
 {
@@ -36,19 +38,9 @@ Output example:
 
 ## How It Works
 
-Uses [@scraper-api/client](https://github.com/ranmoliunian-spec/scraper-api-client) for reliable HTML extraction, then parses HN's structure with Cheerio.
+Fetches HN HTML directly via HTTPS, then parses the structure with Cheerio to extract posts, titles, and metadata.
 
-**Why not just fetch HTML directly?** HN has rate limiting and anti-bot protection. This approach handles that automatically.
-
-## API Used
-
-This example uses [Scraper API](https://github.com/ranmoliunian-spec/scraper-api) - a web scraping service that handles:
-- ✅ Anti-bot bypass
-- ✅ Rate limiting
-- ✅ Proxy rotation
-- ✅ Clean HTML extraction
-
-Try the [npm client](https://github.com/ranmoliunian-spec/scraper-api-client).
+**Standalone scraping** - No API, no auth, no rate limits. Just clone and run.
 
 ## Use Cases
 
