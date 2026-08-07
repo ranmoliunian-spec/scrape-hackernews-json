@@ -7,7 +7,9 @@
 
 const https = require('https');
 
-const API_URL = 'https://scraper-api-demo.inquisitive-bluebell.workers.dev/scrape';
+// NOTE: Demo API is no longer available. Deploy your own instance:
+// https://github.com/ranmoliunian-spec/scraper-api
+const API_URL = process.env.SCRAPER_API_URL || 'https://scraper-api-demo.inquisitive-bluebell.workers.dev/scrape';
 const HN_URL = 'https://news.ycombinator.com';
 
 /**
